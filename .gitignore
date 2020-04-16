@@ -1,0 +1,14 @@
+#node 
+node_modules
+BlogAppV2/node_modules
+bloagapp/node_modules
+
+#docs
+BlogAppV2/documentation
+
+
+#some other shit
+bloagapp/assets_OLD
+bloagapp/assets_OLD2
+bloagapp/assets_TryintToTS
+bloagapp/jsonServices
