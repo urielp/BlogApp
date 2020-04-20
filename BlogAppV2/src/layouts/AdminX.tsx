@@ -14,7 +14,7 @@ import routes from "../routes";
 import protectedRoutes from "../protectedRoutes";
 import dashboardStyle from "../assets/jss/material-dashboard-react/layouts/dashboardStyle";
 import SuperProtected, {
-  ProtectedRouteProps,
+  ProtectedRouteProps
 } from "../components/protectedRoutes/superProtected";
 import { useStoreAsyncVersion } from "../stores/store";
 import image from "../assets/img/sidebar-2.jpg";
@@ -86,8 +86,6 @@ const AdminX = (props: Props) => {
     }
   }
   React.useEffect(() => {
-    console.log("this is the mounted", mounted);
-    console.log("this is the props", props);
     if (navigator.platform.indexOf("Win") > -1) {
       const ps = new PerfectScrollbar(refs.mainPanel);
     }
@@ -134,7 +132,7 @@ const AdminX = (props: Props) => {
         />
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
-          <div className={classes.content}>
+          <div className={classes.content} style={{ display: "flex" }}>
             <div className={classes.container}>{switchRoutes}</div>
           </div>
         ) : (

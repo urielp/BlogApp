@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
   const {
     body
   } = req;
-
+  console.log(body);
   if (!body.title) {
     return res.status(422).json({
       errors: {
