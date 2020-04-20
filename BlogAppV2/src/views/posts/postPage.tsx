@@ -12,11 +12,14 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import avatar from "../../assets/img/faces/marc.jpg";
 import { createStyles } from "@material-ui/core";
-import { PostsList } from "../../components/posts/postsList/postsList";
+import PostsList from "../../components/posts/postsList/postsList";
 import imagesStyles from "../../assets/jss/material-dashboard-react/imageStyles";
 import { cardTitle } from "../../assets/jss/material-dashboard-react";
 import { useStoreAsyncVersion } from "../../stores/store";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import LoadingSpinner from "../../components/loadingSpinner/loadingSpinner";
 import axios from "axios";
+import moment from "moment";
 const styles = createStyles({
   ...imagesStyles,
   //   cardTitle,
@@ -25,22 +28,41 @@ const styles = createStyles({
   }
 });
 
-export const PostsPage = (props: any) => {
+const PostsPage = (props: any) => {
   const { classes } = props;
-  const [posts, setPosts] = React.useState([]);
   const [StateAsync, DispatchAsync] = useStoreAsyncVersion(true);
-
+  const [posts, setPosts] = React.useState(StateAsync.posts);
+  const [loading, isLoading] = React.useState(false);
   React.useEffect(() => {
+    isLoading(true);
     const getPosts = async () => {
       const results = await axios.get("http://localhost:3000/articles", {});
-      setPosts(results.data.articles);
+      //setPosts(results.data.articles);
+      //TODO:need to make this in global store and state
+      DispatchAsync("GET_POSTS", {}).then(() => {
+        setTimeout(() => {
+          isLoading(false);
+        }, 3000);
+      });
+      //setPosts(StateAsync.posts);
     };
     getPosts();
+
     return () => {};
   }, []);
   return (
     <div>
-      <PostsList posts={posts} />
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className={classes.container}>
+          <GridContainer justify="center">
+            <PostsList posts={posts} load={loading} />
+          </GridContainer>
+        </div>
+      )}
     </div>
   );
+  // return loading ? <CircularProgress /> : <PostsList posts={posts} />;
 };
+export default withStyles(styles)(PostsPage);

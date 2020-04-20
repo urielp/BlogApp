@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import moment from "moment";
 let globalState: any;
 let listners: any[] = [];
 let actions: any;
@@ -10,6 +10,7 @@ export const useStore = (shouldListen = true) => {
     const newState = actions[actionIdentifier](globalState, payload);
 
     globalState = { ...globalState, ...newState };
+
     for (const listner of listners) {
       listner(globalState);
     }
@@ -31,30 +32,40 @@ export const useStore = (shouldListen = true) => {
 
 export const useStoreAsyncVersion = (shouldListen = true) => {
   const setState = useState(globalState)[1];
-  const dispatch = (actionIdentifier: any, payload: any) => {
-    const newState = actions[actionIdentifier](globalState, payload);
-    console.log("new state", newState);
-    if (typeof newState.then === "function") {
-      console.log("new state type is promise");
-      newState.then((resolved: any) => {
-        globalState = { ...globalState, ...resolved };
-        console.log("globalstatepromise", globalState);
-        for (const listner of listners) {
-          listner(globalState);
-        }
-      });
-    } else {
-      console.log("new state regular");
-      globalState = { ...globalState, ...newState };
-      console.log("globalstateregular", globalState);
-      for (const listner of listners) {
-        listner(globalState);
-      }
+  const dispatch = async (actionIdentifier: any, payload: any) => {
+    const test = async () => {
+      const newState = await actions[actionIdentifier](globalState, payload);
+
+      return (globalState = { ...globalState, ...newState });
+    };
+    let t = await test();
+
+    globalState = { ...globalState, ...t };
+    for (const listner of listners) {
+      listner(globalState);
     }
+
+    // if (typeof newState.then === "function") {
+    //   newState.then((resolved: any) => {
+    //     globalState = { ...globalState, ...resolved };
+
+    //     for (const listner of listners) {
+    //       listner(globalState);
+    //     }
+    //   });
+    // } else {
+    //   globalState = { ...globalState, ...newState };
+
+    //   for (const listner of listners) {
+    //     listner(globalState);
+    //   }
+    // }
   };
   //when the componnet uses this store the listener will be pushed
   //and removed on cleanup(unmount)
   useEffect(() => {
+    console.log("global sate changed ?");
+    console.log(globalState);
     if (shouldListen) {
       listners.push(setState);
     }
@@ -64,6 +75,7 @@ export const useStoreAsyncVersion = (shouldListen = true) => {
       }
     };
   }, [setState, shouldListen]);
+
   return [globalState, dispatch];
 };
 export const initStore = (userActions: any, initialState: any) => {
