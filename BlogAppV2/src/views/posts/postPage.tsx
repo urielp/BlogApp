@@ -63,6 +63,6 @@ const PostsPage = (props: any) => {
       )}
     </div>
   );
-  // return loading ? <CircularProgress /> : <PostsList posts={posts} />;
+  // return loading ? <CircularProgress /> : <PostsList po sts={posts} />;
 };
 export default withStyles(styles)(PostsPage);
