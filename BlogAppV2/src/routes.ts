@@ -5,8 +5,6 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import DescriptionIcon from "@material-ui/icons/Description";
 // core components/views for Admin layout
@@ -17,11 +15,10 @@ import Typography from "./views/Typography/Typography";
 import Icons from "./views/Icons/Icons";
 import Maps from "./views/Maps/Maps";
 import NotificationsPage from "./views/Notifications/Notifications";
+import { NewPostsPage } from "./views/newPostPage/newPost";
+import { LoginPage } from "./views/LoginPage/loginPage";
 import PostsPage from "./views/posts/postPage";
-// core components/views for RTL layout
-import RTLPage from "./views/RTLPage/RTLPage";
-import LoginX from "./components/LoginX/LoginX";
-import newPostForm from "./components/posts/postForm/newPost";
+
 //'./components/login/login';
 const dashboardRoutes = [
   // {
@@ -117,7 +114,7 @@ const dashboardRoutes = [
     name: "LoginX",
     rtlName: "התחברות",
     icon: AccountCircleIcon,
-    component: LoginX,
+    component: LoginPage,
     layout: "/adminx"
   },
   {
@@ -125,7 +122,7 @@ const dashboardRoutes = [
     name: "פוסט חדש",
     rtlName: "פוסט חדש",
     icon: AccountCircleIcon,
-    component: newPostForm,
+    component: NewPostsPage,
     layout: "/adminx"
   }
 ];

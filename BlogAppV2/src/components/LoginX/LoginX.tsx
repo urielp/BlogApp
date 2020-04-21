@@ -60,7 +60,7 @@ const LoginX = (props: Props) => {
     <div>
       {/* <div className={classes.container}> */}
       <GridContainer justify="center">
-        <GridItem xs={12} sm={12} md={12}>
+        <GridItem xs={6} sm={6} md={6}>
           <Card className={classes.textCenter}>
             <form
               className={classes.form}
