@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Redirect } from "react-router-dom";
 import Card from "../../Card/Card";
 import CardHeader from "../../Card/CardHeader";
 import CardFooter from "../../Card/CardFooter";
@@ -9,6 +10,7 @@ import GridItem from "../../Grid/GridItem";
 import Divider from "@material-ui/core/Divider/Divider";
 import { TextField } from "@material-ui/core";
 import CustomInput from "../../CustomInput/CustomInput";
+import { Ed } from "../../RichTextEditor/Editor";
 // import Button from '../CustomButtons/Button';
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
@@ -23,7 +25,14 @@ import SnackbarContent from "../../Snackbar/SnackbarContent";
 import Warning from "@material-ui/icons/Warning";
 import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+// import { Editable, withReact, useSlate, Slate } from "slate-react";
+// import { Editor, Transforms, createEditor } from "slate";
+import ReactDOM from "react-dom";
+import { Editor, EditorState } from "draft-js";
+import typographyStyle from "../../../assets/jss/material-dashboard-react/components/typographyStyle";
 const styles = createStyles({
+  ...typographyStyle,
   ...rtlStyle,
   container: {
     ...container,
@@ -31,29 +40,42 @@ const styles = createStyles({
     position: "relative",
     paddingTop: "20vh",
     color: "#FFFFFF",
-    paddingBottom: "200px"
+    paddingBottom: "200px",
   },
   center: {
-    right: "25%"
-  }
+    right: "25%",
+  },
 });
 const theme = createMuiTheme({
-  direction: "rtl" // Both here and <body dir="rtl">
+  direction: "rtl", // Both here and <body dir="rtl">
 });
 const newPostForm = (props: any) => {
   const { classes } = props;
-  const [AsyncState, AsyncDispatch] = useStoreAsyncVersion(true);
+  const AsyncDispatch = useStoreAsyncVersion(true)[1];
   const [open, setOpen] = React.useState(false); //for snacks
   const [isOpen, setOpen2] = React.useState(false);
 
+  /********
+   * TODO:research for Rich Text editor
+   */
+  // const editor = React.useMemo(() => withReact(createEditor()), []);
+  // const [value, setValue] = React.useState([
+  //   {
+  //     type: "paragraph",
+  //     children: [{ text: "A line of text in a paragraph." }]
+  //   }
+  // ]);
+  const [editorState, setEditorState] = React.useState(
+    EditorState.createEmpty()
+  );
+
   const handleClose = (message: any) => {
-    console.log(message);
     return (
       <Snackbar
         place="tc"
         color="warning"
         classes={{
-          root: classes.root // class name, e.g. `classes-nesting-root-x`
+          root: classes.root, // class name, e.g. `classes-nesting-root-x`
         }}
         icon={Warning}
         message={
@@ -72,14 +94,14 @@ const newPostForm = (props: any) => {
       "& label": {
         transformOrigin: "top right",
         right: 0,
-        left: "auto"
+        left: "auto",
       },
       "& outline": {
         transformOrigin: "top right",
         right: 0,
-        left: "auto"
-      }
-    }
+        left: "auto",
+      },
+    },
   })(TextField);
   return (
     <MuiThemeProvider theme={theme}>
@@ -90,32 +112,34 @@ const newPostForm = (props: any) => {
               initialValues={{
                 author: "NA",
                 title: "",
-                subtitle: "",
-                body: ""
+                subTitle: "",
+                body: "",
               }}
               validateOnChange={false}
               validateOnBlur={false}
-              validate={values => {
+              validate={(values) => {
                 const errors: any = {};
                 if (!values.title) {
                   //setOpen(true);
                   errors.title = "כותרת לא יכולה להיות ריקה";
                 }
-                if (!values.subtitle) {
+                if (!values.subTitle) {
                   //setOpen(true);
-                  errors.subtitle = "\nחובה להזין תיאור קצר";
+                  errors.subTitle = "\nחובה להזין תיאור קצר";
                 }
                 if (!values.body) {
                   //setOpen(true);
                   errors.body = "פוסט לא יכול להיות ריק";
                 }
-                if (errors.body || errors.title || errors.subtitle) {
+                if (errors.body || errors.title || errors.subTitle) {
                   setOpen(true);
                 }
                 return errors;
               }}
               onSubmit={(values, { setSubmitting }) => {
+                values.body = values.body + btoa(`<img src=\\\\></>`);
                 AsyncDispatch("NEW_POST", values);
+                console.log(props);
                 props.history.push("/adminx/posts");
               }}
             >
@@ -126,7 +150,7 @@ const newPostForm = (props: any) => {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting
+                isSubmitting,
               }) => (
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={12}>
@@ -145,27 +169,27 @@ const newPostForm = (props: any) => {
                                 fullwidth
                                 inputProps={{
                                   placeholder: "כותרת לפוסט",
-                                  variant: "outlined"
+                                  variant: "outlined",
                                 }}
                                 formControlProps={{
                                   fullWidth: true,
                                   value: values.title,
-                                  onChange: handleChange
+                                  onChange: handleChange,
                                 }}
                               />
                               {/* {errors.title ? handleClose(errors.title) : null} */}
                             </GridItem>
                             <GridItem xs={12} sm={12} md={9}>
                               <CustomInput
-                                id="subtitle"
+                                id="subTitle"
                                 inputProps={{
                                   placeholder: "תיאור קצר",
-                                  variant: "outlined"
+                                  variant: "outlined",
                                 }}
                                 formControlProps={{
                                   fullWidth: true,
-                                  value: values.subtitle,
-                                  onChange: handleChange
+                                  value: values.subTitle,
+                                  onChange: handleChange,
                                 }}
                               />
                               {/* {errors.subtitle ? handleClose(errors.subtitle) : null} */}
@@ -178,22 +202,37 @@ const newPostForm = (props: any) => {
                                   placeholder: "תוכן",
                                   variant: "outlined",
                                   multiline: true,
-                                  rows: 5
+                                  rows: 5,
                                 }}
                                 formControlProps={{
                                   fullWidth: true,
                                   value: values.body,
-                                  onChange: handleChange
+                                  onChange: handleChange,
                                 }}
                               />
-                              {errors.body || errors.title || errors.subtitle
+                              {errors.body || errors.title || errors.subTitle
                                 ? handleClose(errors)
                                 : null}
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={9}>
+                              {/* <Slate
+                                editor={editor}
+                                value={value}
+                                onChange={(value: any) => setValue(value)}
+                              >
+                                <Editable />
+                              </Slate> */}
+                              {/* <Editor
+                                editorState={editorState}
+                                onChange={setEditorState}
+                              /> */}
+                              <Ed />
                             </GridItem>
                           </GridContainer>
                           <Button color="primary" type="submit">
                             שמור
                           </Button>
+                          <Button color="primary">שמור עורך</Button>
                         </form>
                       </CardBody>
                       {/* <CardFooter className={classes.textMuted}>2 days ago</CardFooter> */}

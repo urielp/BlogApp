@@ -17,8 +17,8 @@ import Maps from "./views/Maps/Maps";
 import NotificationsPage from "./views/Notifications/Notifications";
 import { NewPostsPage } from "./views/newPostPage/newPost";
 import { LoginPage } from "./views/LoginPage/loginPage";
-import PostsPage from "./views/posts/postPage";
-
+import PostsPage from "./views/posts/postsPage";
+import SinglePostView from "./views/posts/postView";
 //'./components/login/login';
 const dashboardRoutes = [
   // {
@@ -123,6 +123,14 @@ const dashboardRoutes = [
     rtlName: "פוסט חדש",
     icon: AccountCircleIcon,
     component: NewPostsPage,
+    layout: "/adminx"
+  },
+  {
+    path: "/post",
+    name: "פודט",
+    rtlName: "פוסט",
+    icon: AccountCircleIcon,
+    component: SinglePostView,
     layout: "/adminx"
   }
 ];

@@ -1,22 +1,11 @@
 import * as React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel";
+import { Link } from "react-router-dom";
 // core components
-import GridItem from "../../Grid/GridItem";
-//"/components/Grid/GridItem";
-import GridContainer from "../../Grid/GridContainer";
-import CustomInput from "../../CustomInput/CustomInput";
-import Button from "../../CustomButtons/Button";
 import Card from "../../Card/Card";
-import CardHeader from "../../Card/CardHeader";
 import CardBody from "../../Card/CardBody";
-import avatar from "../../../assets/img/faces/marc.jpg";
 import { createStyles, Grid } from "@material-ui/core";
 import imagesStyles from "../../../assets/jss/material-dashboard-react/imageStyles";
-import { cardTitleX } from "../../../assets/jss/material-dashboard-react";
-import postImage from "../../../assets/img/sidebar-1.jpg";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
 import moment from "moment";
 const title = {
   color: "#3C4858",
@@ -62,6 +51,7 @@ const styles = createStyles({
 });
 const PostItem = (props: any) => {
   const { classes } = props;
+  console.log(props.post);
   return (
     <div>
       <Card className={classes.root} style={{ width: "58.75rem" }}>
@@ -73,16 +63,30 @@ const PostItem = (props: any) => {
           alt="Card-img-cap"
         />
         <CardBody>
-          <h4 className={classes.cardTitleX}>{props.post.title}</h4>
+          <Link
+            to={{
+              pathname: "/adminx/post",
+              hash: "#t",
+              state: { postID: props.post._id }
+            }}
+          >
+            <h4 className={classes.cardTitleX}>{props.post.title}</h4>
+          </Link>
           <small className={classes.textMuted}>By: {props.post.author}</small>
-          <p>{props.post.body}</p>
+          {props.post.subTitle ? (
+            <p>{props.post.subTitle}</p>
+          ) : (
+            <p>{props.post.body}</p>
+          )}
           <p>
             <small className={classes.textMuted}>
-              פורסם ב:{moment(props.post.createdAt).format("lll")}
+              פורסם ב: {moment(props.post.createdAt).format("lll")}
             </small>
             <br />
-            {props.post.createdAt ? (
-              <small>עודכן ב :{"some date value"}</small>
+            {props.post.updatedAt ? (
+              <small className={classes.textMuted}>
+                עודכן ב: {"some date value"}
+              </small>
             ) : null}
             {/* <small className={classes.textMuted}>Last updated 3 mins ago</small> */}
           </p>

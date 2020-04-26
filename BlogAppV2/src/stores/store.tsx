@@ -64,8 +64,7 @@ export const useStoreAsyncVersion = (shouldListen = true) => {
   //when the componnet uses this store the listener will be pushed
   //and removed on cleanup(unmount)
   useEffect(() => {
-    console.log("global sate changed ?");
-    console.log(globalState);
+    
     if (shouldListen) {
       listners.push(setState);
     }
