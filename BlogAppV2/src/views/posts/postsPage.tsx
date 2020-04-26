@@ -25,7 +25,7 @@ const PostsPage = (props: any) => {
   React.useEffect(() => {
     isLoading(true);
     const getPosts = async () => {
-      const results = await axios.get("http://localhost:3000/articles", {});
+      //const results = await axios.get("http://localhost:3000/articles", {});
       //setPosts(results.data.articles);
       //TODO:need to make this in global store and state
       DispatchAsync("GET_POSTS", {}).then(() => {

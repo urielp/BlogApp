@@ -22,6 +22,16 @@ const postsStore = () => {
         );
       };
       postNewPost();
+    },
+    GET_POST: async (curState: any, payload: any) => {
+      const getPost = async () => {
+        const results = await axios.get(
+          "http://localhost:3000/articles/" + payload
+        );
+        return results.data.article;
+      };
+      let post = await getPost();
+      return post;
     }
   };
   initStore(actions, {

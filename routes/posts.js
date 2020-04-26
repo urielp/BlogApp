@@ -20,8 +20,15 @@ router.get('/', (req, res, next) => {
   const {
     body
   } = req;
-  console.log(body);
+  console.log("before postin new ", body);
   if (!body.title) {
+    return res.status(422).json({
+      errors: {
+        title: 'is required',
+      },
+    });
+  }
+  if (!body.subTitle) {
     return res.status(422).json({
       errors: {
         title: 'is required',
@@ -44,13 +51,25 @@ router.get('/', (req, res, next) => {
     });
   }
   body.createdAt = moment().format('LLL');
-  console.log(body);
-  console.log(moment.locale());
   const finalArticle = new Article(body);
   return finalArticle.save()
     .then(() => res.json({
       article: finalArticle.toJSON()
     }))
     .catch(next);
+}).get('/:id', (req, res, next) => {
+  console.log(req.params.id);
+
+  Article.findById(req.params.id, (error, article) => {
+    if (error) {
+
+    } else if (article) {
+      console.log(article)
+      res.status(200).json({
+        article
+      });
+    }
+
+  })
 });
 module.exports = router;
