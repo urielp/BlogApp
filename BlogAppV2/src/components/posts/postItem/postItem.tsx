@@ -18,17 +18,17 @@ const title = {
   "& small": {
     color: "#777",
     fontWeight: 400,
-    lineHeight: "1"
-  }
+    lineHeight: "1",
+  },
 };
 
 const styles = createStyles({
   root: {
-    display: "flex"
+    display: "flex",
   },
   ...imagesStyles,
   textMuted: {
-    color: "#6c757d"
+    color: "#6c757d",
   },
   cardTitleX: {
     ...title,
@@ -39,19 +39,20 @@ const styles = createStyles({
       ...title,
       marginTop: ".625rem",
       marginBottom: "0.75rem",
-      minHeight: "auto"
-    }
+      minHeight: "auto",
+    },
+    fontFamily: "Assistant",
   },
   cover: {
-    width: 151
+    width: 151,
   },
   content: {
-    flex: "1 0 auto"
-  }
+    flex: "1 0 auto",
+  },
 });
 const PostItem = (props: any) => {
   const { classes } = props;
-  console.log(props.post);
+
   return (
     <div>
       <Card className={classes.root} style={{ width: "58.75rem" }}>
@@ -67,7 +68,7 @@ const PostItem = (props: any) => {
             to={{
               pathname: "/adminx/post",
               hash: "#t",
-              state: { postID: props.post._id }
+              state: { postID: props.post._id },
             }}
           >
             <h4 className={classes.cardTitleX}>{props.post.title}</h4>

@@ -20,7 +20,7 @@ const styles = createStyles({
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
-    marginBottom: "0"
+    marginBottom: "0",
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -29,21 +29,14 @@ const styles = createStyles({
     fontWeight: 300,
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 });
 const SinglePostView = (props: any) => {
   const { classes } = props;
   const [post, setPost] = React.useState({});
   const DispatchAsync = useStoreAsyncVersion(true)[1];
   React.useEffect(() => {
-    // const getPost = async () => {
-    //   let post = await DispatchAsync("GET_POST", "5e9e9b57a7a56c1621a53b9d");
-    //   console.log(post);
-    //   setPost(post);
-    // };
-    // getPost();
-    console.log(props.location.state.postID);
     const getPost = async () => {
       const results = await axios.get(
         `http://localhost:3000/articles/${props.location.state.postID}`
