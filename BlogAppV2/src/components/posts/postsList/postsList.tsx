@@ -7,8 +7,6 @@ import PostItem from "../postItem/postItem";
 import { useStoreAsyncVersion } from "../../../stores/store";
 import rtlStyle from "../../../assets/jss/material-dashboard-react/views/rtlStyle";
 import { container } from "../../../assets/jss/material-dashboard-react";
-import classes from "*.module.css";
-"reactstrap";
 
 export interface postProps {
   posts: any[];
@@ -21,20 +19,19 @@ const styles = createStyles({
     position: "relative",
     paddingTop: "20vh",
     color: "#FFFFFF",
-    paddingBottom: "200px"
-  }
+    paddingBottom: "200px",
+  },
 });
 const PostsList = (props: any) => {
   const StateAsync = useStoreAsyncVersion(true)[0];
   const { classes } = props;
-  console.log(classes.container);
-  React.useEffect(() => {
-    console.log(props.load);
-  }, []);
+  React.useEffect(() => {}, []);
   return (
     <div>
       {/* <GridContainer justify="center"> */}
       {StateAsync.posts.map((v: any, key: any) => {
+        console.log(v);
+
         return (
           <GridItem xs={12} sm={12} md={12} key={key}>
             <PostItem post={v} key={key} />

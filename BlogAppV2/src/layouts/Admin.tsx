@@ -24,7 +24,7 @@ import logo from "../assets/img/reactlogo.png";
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      console.log(prop);
+    
       if (prop.layout === "/admin") {
         return (
           <Route
@@ -113,6 +113,9 @@ class Dashboard extends React.Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeFunction);
   }
+
+
+  
 
   render() {
     const { classes, ...rest } = this.props;

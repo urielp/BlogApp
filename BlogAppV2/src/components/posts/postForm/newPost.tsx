@@ -10,7 +10,6 @@ import GridItem from "../../Grid/GridItem";
 import Divider from "@material-ui/core/Divider/Divider";
 import { TextField } from "@material-ui/core";
 import CustomInput from "../../CustomInput/CustomInput";
-import { Ed } from "../../RichTextEditor/Editor";
 // import Button from '../CustomButtons/Button';
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
@@ -25,12 +24,13 @@ import SnackbarContent from "../../Snackbar/SnackbarContent";
 import Warning from "@material-ui/icons/Warning";
 import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
+import EditorAxe from "../../EditorX/EditorX";
 // import { Editable, withReact, useSlate, Slate } from "slate-react";
 // import { Editor, Transforms, createEditor } from "slate";
 import ReactDOM from "react-dom";
 import { Editor, EditorState } from "draft-js";
 import typographyStyle from "../../../assets/jss/material-dashboard-react/components/typographyStyle";
+
 const styles = createStyles({
   ...typographyStyle,
   ...rtlStyle,
@@ -45,16 +45,22 @@ const styles = createStyles({
   center: {
     right: "25%",
   },
+  labelFont: {
+    fontFamily: "Assistant",
+  },
 });
 const theme = createMuiTheme({
   direction: "rtl", // Both here and <body dir="rtl">
+  typography: {
+    fontFamily: '"Assistant","Roboto", "Helvetica", "Arial", sans-serif,',
+  },
 });
 const newPostForm = (props: any) => {
   const { classes } = props;
   const AsyncDispatch = useStoreAsyncVersion(true)[1];
   const [open, setOpen] = React.useState(false); //for snacks
   const [isOpen, setOpen2] = React.useState(false);
-
+  const [content, setContent] = React.useState<any>();
   /********
    * TODO:research for Rich Text editor
    */
@@ -114,6 +120,7 @@ const newPostForm = (props: any) => {
                 title: "",
                 subTitle: "",
                 body: "",
+                content: "",
               }}
               validateOnChange={false}
               validateOnBlur={false}
@@ -138,8 +145,8 @@ const newPostForm = (props: any) => {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 values.body = values.body + btoa(`<img src=\\\\></>`);
+                values.content = content;
                 AsyncDispatch("NEW_POST", values);
-                console.log(props);
                 props.history.push("/adminx/posts");
               }}
             >
@@ -152,15 +159,24 @@ const newPostForm = (props: any) => {
                 handleSubmit,
                 isSubmitting,
               }) => (
-                <GridContainer justify="center">
+                <GridContainer
+                  justify="center"
+                  style={{ fontFamily: "Assistant" }}
+                >
                   <GridItem xs={12} sm={12} md={12}>
                     <Card className={classes.textCenter}>
-                      <CardHeader color="danger">פוסט חדש{isOpen}</CardHeader>
+                      <CardHeader
+                        color="danger"
+                        style={{ fontFamily: "Assistant" }}
+                      >
+                        פוסט חדש{isOpen}
+                      </CardHeader>
                       <CardBody>
                         <form
                           className={classes.form}
                           role="form"
                           onSubmit={handleSubmit}
+                          style={{ fontFamily: "Assistant" }}
                         >
                           <GridContainer>
                             <GridItem xs={12} sm={12} md={9}>
@@ -216,7 +232,7 @@ const newPostForm = (props: any) => {
                             </GridItem>
                             <GridItem xs={12} sm={12} md={9}>
                               {/* <Slate
-                                editor={editor}
+                                editor={editor} 
                                 value={value}
                                 onChange={(value: any) => setValue(value)}
                               >
@@ -226,13 +242,13 @@ const newPostForm = (props: any) => {
                                 editorState={editorState}
                                 onChange={setEditorState}
                               /> */}
-                              <Ed />
+                              {/* <Ed /> */}
+                              <EditorAxe editorContent={setContent} />
                             </GridItem>
                           </GridContainer>
                           <Button color="primary" type="submit">
                             שמור
                           </Button>
-                          <Button color="primary">שמור עורך</Button>
                         </form>
                       </CardBody>
                       {/* <CardFooter className={classes.textMuted}>2 days ago</CardFooter> */}

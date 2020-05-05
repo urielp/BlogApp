@@ -14,7 +14,7 @@ import routes from "../routes";
 import protectedRoutes from "../protectedRoutes";
 import dashboardStyle from "../assets/jss/material-dashboard-react/layouts/dashboardStyle";
 import SuperProtected, {
-  ProtectedRouteProps
+  ProtectedRouteProps,
 } from "../components/protectedRoutes/superProtected";
 import { useStoreAsyncVersion } from "../stores/store";
 import image from "../assets/img/sidebar-2.jpg";
@@ -140,13 +140,13 @@ const AdminX = (props: Props) => {
         )}
         {getRoute() ? <Footer /> : null}
         {/* <FixedPlugin
-        handleImageClick={this.handleImageClick}
-        handleColorClick={this.handleColorClick}
-        bgColor={this.state.color}
-        bgImage={this.state.image}
-        handleFixedClick={this.handleFixedClick}
-        fixedClasses={this.state.fixedClasses}
-      /> */}
+          handleImageClick={() => {}}
+          handleColorClick={() => {}}
+          bgColor={() => {}}
+          bgImage={() => {}}
+          handleFixedClick={() => {}}
+          fixedClasses={() => {}}
+        /> */}
       </div>
     </div>
   );
