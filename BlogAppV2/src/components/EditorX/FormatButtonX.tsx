@@ -11,6 +11,7 @@ import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
+import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
 import { createStyles } from "@material-ui/core";
 import { withStyles } from "@material-ui/core";
 import Button from "../CustomButtons/Button";
@@ -58,6 +59,8 @@ const FormatButtonX = ({
         return <FormatListBulletedIcon />;
       case "formatAlignCenter":
         return <FormatAlignCenterIcon />;
+      case "formatParagraph":
+        return <FormatAlignJustifyIcon />;
     }
   };
 

@@ -47,7 +47,6 @@ const StyleButton = ({
   const setStyle = () => {
     toggleStyleAction(editor, format);
   };
-  console.log(content);
   return (
     <Button
       reversed
