@@ -30,8 +30,6 @@ const PostsList = (props: any) => {
     <div>
       {/* <GridContainer justify="center"> */}
       {StateAsync.posts.map((v: any, key: any) => {
-        console.log(v);
-
         return (
           <GridItem xs={12} sm={12} md={12} key={key}>
             <PostItem post={v} key={key} />

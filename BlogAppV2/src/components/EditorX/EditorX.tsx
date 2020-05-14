@@ -10,19 +10,19 @@ import { HoveringToolbarX } from "./HoverMenu";
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import rtlStyle from "../../assets/jss/material-dashboard-react/views/rtlStyle";
+import { ElementX } from "./utils/textFormatUtils";
+import { LeafX } from "./utils/textFormatUtils";
+//TODO:this code needs to be split to smaller utils funcitons;
 const styles = createStyles({
   ...rtlStyle,
 });
+
 const initialValue = [
   {
     children: [
       {
         text: "זוהי הכותרת הראשית של הפוסט שיפורסם",
       },
-      //   { text: "bold", bold: true },
-      //   { text: ", " },
-      //   { text: "italic", italic: true, center: true },
-      //   { text: ", or anything else you might want to do!" },
     ],
     type: "h1",
   },
@@ -48,6 +48,8 @@ const initialValue = [
   },
 ];
 const EditorAxe = (props: any) => {
+  const renderElmnt = ElementX;
+
   const editor = React.useMemo(
     () => withLinks(withHistory(withReact(createEditor()))),
     []
@@ -60,50 +62,51 @@ const EditorAxe = (props: any) => {
     if (props.localValue) {
       setValue(props.localValue);
     }
-    // let content = localStorage.getItem("content") || "{}";
-    // if (content) {
-    //   console.log(JSON.parse(content));
-    //   setValue(JSON.parse(content));
-    // }
     return () => {};
   }, [props.localValue]);
-  const renderElement = React.useCallback(
-    (props) => {
-      switch (props.element.type) {
-        case "block-quote":
-          return <QuoteCust {...props}> {props.children}</QuoteCust>;
-        case "link":
-          return (
-            <a {...props.attributes} href={props.element.url}>
-              {props.children}
-            </a>
-          );
-        case "h1":
-          return (
-            <h1 {...props} style={{ fontFamily: "Assistant" }}>
-              {props.children}
-            </h1>
-          );
-        case "h2":
-          return <h2 {...props}>{props.children}</h2>;
-        case "h3":
-          return <h3 {...props}>{props.children}</h3>;
-        case "h4":
-          return <h4 {...props}>{props.children}</h4>;
-        case "h5":
-          return <h5 {...props}>{props.children}</h5>;
-        case "h6":
-          return <h5 {...props}>{props.children}</h5>;
-        default:
-          return <DefaultELement {...props}>{props.children}</DefaultELement>;
-      }
 
-      //return <Element {...props} />;
-    },
+  const renderElement = React.useCallback(
+    renderElmnt,
+    // (props) => {
+    //   switch (props.element.type) {
+    //     case "paragraph":
+    //       return <p {...props}>{props.children}</p>;
+    //     case "block-quote":
+    //       return <QuoteCust {...props}> {props.children}</QuoteCust>;
+    //     case "link":
+    //       return (
+    //         <a {...props.attributes} href={props.element.url}>
+    //           {props.children}
+    //         </a>
+    //       );
+    //     case "h1":
+    //       return (
+    //         <h1 {...props} style={{ fontFamily: "Assistant" }}>
+    //           {props.children}
+    //         </h1>
+    //       );
+    //     case "h2":
+    //       return <h2 {...props}>{props.children}</h2>;
+    //     case "h3":
+    //       return <h3 {...props}>{props.children}</h3>;
+    //     case "h4":
+    //       return <h4 {...props}>{props.children}</h4>;
+    //     case "h5":
+    //       return <h5 {...props}>{props.children}</h5>;
+    //     case "h6":
+    //       return <h5 {...props}>{props.children}</h5>;
+    //     default:
+    //       return <DefaultELement {...props}>{props.children}</DefaultELement>;
+    //   }
+    // },
 
     []
   );
-  const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
+  const renderLeaf = React.useCallback(
+    //(props) => <Leaf {...props} />
+    LeafX,
+    []
+  );
   return (
     <>
       <Slate
@@ -137,6 +140,16 @@ const EditorAxe = (props: any) => {
                 return toggleFormat(editor, "underline");
             }
           }}
+          onKeyDown={(data) => {
+            console.log(data.key);
+            if (data.key !== "Enter") {
+              return;
+            }
+            if (data.key === "Enter" && data.shiftKey) {
+              data.preventDefault();
+              editor.insertText("\n");
+            }
+          }}
         />
       </Slate>
     </>
@@ -161,7 +174,6 @@ const isFormatActive = (editor: any, format: any) => {
 };
 
 const Leaf = ({ attributes, children, leaf }: any) => {
-  console.log("i am a leaf", leaf);
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }
@@ -269,6 +281,7 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const toggleBlock = (editor: any, format: any) => {
   const isActive = isBlockActive(editor, format);
+  console.log(editor, isActive);
   const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {

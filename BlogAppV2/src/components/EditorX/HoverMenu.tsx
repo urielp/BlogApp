@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Slate, Editable, ReactEditor, withReact, useSlate } from "slate-react";
+import { ReactEditor, useSlate } from "slate-react";
 import { Range } from "slate";
-import { Editor, Transforms, Text, createEditor } from "slate";
+import { Editor } from "slate";
 import { Icon, Menu, Portal } from "./components";
 import LinkButton from "./components/LinkButton";
 import FormatButtonX from "./FormatButtonX";
@@ -20,14 +20,13 @@ const STYLE_TYPES = [
 ];
 const BLOCK_STYLE = [
   { format: "block-quote", iconFormat: "formatQuote" },
+  { format: "paragraph", iconFormat: "formatParagraph" },
   { format: "h1", content: "H1" },
   { format: "h2", content: "H2" },
   { format: "h3", content: "H3" },
   { format: "h4", content: "H4" },
   { format: "h5", content: "H5" },
   { format: "h6", content: "H6" },
-  //   { format: "numbred-list", iconFormat: "formatUnderline" },
-  //   { format: "bulleted-list", iconFormat: "formatItalic" },
 ];
 export const HoveringToolbarX = (props: any) => {
   const ref = React.useRef<any>();
