@@ -73,14 +73,24 @@ const SinglePostViewItem = (props: any) => {
   React.useEffect(() => {
     if (props.post.content) {
       content = JSON.parse(props.post.content);
+
       setHeadLine(content[0].children[0].text);
       setShortDescription(content[1].children[0].text);
-      setValue(content.slice(2));
+      setValue(content.slice(1));
+      console.log(props.post.content);
     }
   }, [props.post.content]);
   return (
     <>
-      <GridContainer justify="center">
+      <div style={{ flexGrow: 1, marginTop: "24px", marginBottom: "24px" }}>
+        <Grid container justify={"center"} alignItems="center" direction="row">
+          <Grid container item xs={6} spacing={8}>
+            <Row {...props} />
+          </Grid>
+        </Grid>
+      </div>
+
+      {/* <GridContainer justify="center">
         <GridItem xs={6} sm={6} md={6}>
           <div>
             <h1 className={classes.title}> {headLine}</h1>
@@ -89,7 +99,7 @@ const SinglePostViewItem = (props: any) => {
             <h2 className={classes.description}>{shortDescription}</h2>
           </div>
         </GridItem>
-      </GridContainer>
+      </GridContainer> */}
       {/* <Card>
             <CardHeader color="primary">
               <div>
@@ -204,14 +214,6 @@ const SinglePostViewItem = (props: any) => {
         </ul>
       </div> */}
 
-      <div style={{ flexGrow: 1, marginTop: "24px", marginBottom: "24px" }}>
-        <Grid container justify={"center"} alignItems="center" direction="row">
-          <Grid container item xs={6} spacing={8}>
-            <Row {...props} />
-          </Grid>
-        </Grid>
-      </div>
-
       <div>
         <GridContainer justify="center">
           <GridItem xs={6} sm={6} md={6}>
@@ -220,7 +222,7 @@ const SinglePostViewItem = (props: any) => {
               {props.post.content ? (
                 <EditorAxe
                   isReadOnly={true}
-                  localValue={JSON.parse(props.post.content).slice(2)}
+                  localValue={JSON.parse(props.post.content)}
                 />
               ) : (
                 <EditorAxe isReadOnly={true} localValue={content} />
