@@ -1,11 +1,7 @@
 import * as React from "react";
-import { Slate, Editable, ReactEditor, withReact, useSlate } from "slate-react";
-import { Editor, Transforms, Text, createEditor } from "slate";
+import { Slate, Editable, withReact } from "slate-react";
+import { createEditor } from "slate";
 import { withHistory } from "slate-history";
-import { Range } from "slate";
-import { Button, Icon, Menu, Portal } from "./components";
-import { css } from "emotion";
-import isUrl from "is-url";
 import { HoveringToolbarX } from "./HoverMenu";
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
@@ -17,7 +13,6 @@ import {
   toggleBlock,
   withLinks,
 } from "./utils/textFormatUtils";
-// import { LeafX } from "./utils/textFormatUtils";
 //TODO:this code needs to be split to smaller utils funcitons;
 const styles = createStyles({
   ...rtlStyle,
@@ -71,48 +66,8 @@ const EditorAxe = (props: any) => {
     return () => {};
   }, [props.localValue]);
 
-  const renderElement = React.useCallback(
-    renderElmnt,
-    // (props) => {
-    //   switch (props.element.type) {
-    //     case "paragraph":
-    //       return <p {...props}>{props.children}</p>;
-    //     case "block-quote":
-    //       return <QuoteCust {...props}> {props.children}</QuoteCust>;
-    //     case "link":
-    //       return (
-    //         <a {...props.attributes} href={props.element.url}>
-    //           {props.children}
-    //         </a>
-    //       );
-    //     case "h1":
-    //       return (
-    //         <h1 {...props} style={{ fontFamily: "Assistant" }}>
-    //           {props.children}
-    //         </h1>
-    //       );
-    //     case "h2":
-    //       return <h2 {...props}>{props.children}</h2>;
-    //     case "h3":
-    //       return <h3 {...props}>{props.children}</h3>;
-    //     case "h4":
-    //       return <h4 {...props}>{props.children}</h4>;
-    //     case "h5":
-    //       return <h5 {...props}>{props.children}</h5>;
-    //     case "h6":
-    //       return <h5 {...props}>{props.children}</h5>;
-    //     default:
-    //       return <DefaultELement {...props}>{props.children}</DefaultELement>;
-    //   }
-    // },
-
-    []
-  );
-  const renderLeaf = React.useCallback(
-    //(props) => <Leaf {...props} />
-    LeafX,
-    []
-  );
+  const renderElement = React.useCallback(renderElmnt, []);
+  const renderLeaf = React.useCallback(LeafX, []);
   return (
     <>
       <Slate
@@ -137,18 +92,7 @@ const EditorAxe = (props: any) => {
           placeholder=""
           readOnly={readOnly}
           onDOMBeforeInput={(event: any) => beforeDomInput(event, editor)}
-          // onDOMBeforeInput={(event: any) => {
-          //   switch (event.inputType) {
-          //     case "formatBold":
-          //       return toggleFormat(editor, "bold");
-          //     case "formatItalic":
-          //       return toggleFormat(editor, "italic");
-          //     case "formatUnderline":
-          //       return toggleFormat(editor, "underline");
-          //   }
-          // }}
           onKeyDown={(data) => {
-            console.log(data.key);
             if (data.key !== "Enter") {
               return;
             }
@@ -175,6 +119,7 @@ const beforeDomInput = (event: any, editor: any) => {
       return toggleFormat(editor, "block-quote");
   }
 };
+/*
 // const toggleFormat = (editor: any, format: any) => {
 //   const isActive = isFormatActive(editor, format);
 
@@ -493,5 +438,5 @@ const beforeDomInput = (event: any, editor: any) => {
 //     Transforms.wrapNodes(editor, link, { split: true });
 //     Transforms.collapse(editor, { edge: "end" });
 //   }
-// };
+// };*/
 export default withStyles(styles)(EditorAxe);
