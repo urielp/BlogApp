@@ -13,31 +13,33 @@ const styles = createStyles({
   ...imagesStyles,
   //   cardTitle,
   textMuted: {
-    color: "#6c757d"
-  }
+    color: "#6c757d",
+  },
 });
 
 const PostsPage = (props: any) => {
   const { classes } = props;
-  const [StateAsync, DispatchAsync] = useStoreAsyncVersion(true);
-  const [posts, setPosts] = React.useState(StateAsync.posts);
+  //const [StateAsync, DispatchAsync] = useStoreAsyncVersion(true);
+  //const [posts, setPosts] = React.useState(StateAsync.posts);
   const [loading, isLoading] = React.useState(false);
-  React.useEffect(() => {
-    isLoading(true);
-    const getPosts = async () => {
-      //const results = await axios.get("http://localhost:3000/articles", {});
-      //setPosts(results.data.articles);
-      //TODO:need to make this in global store and state
-      DispatchAsync("GET_POSTS", {}).then(() => {
-        setTimeout(() => {
-          isLoading(false);
-        }, 3000);
-      });
-    };
-    getPosts();
 
-    return () => {};
-  }, []);
+  // React.useEffect(() => {
+  //   isLoading(true);
+  //   const getPosts = async () => {
+  //     //const results = await axios.get("http://localhost:3000/articles", {});
+  //     //setPosts(results.data.articles);
+  //     //TODO:need to make this in global store and state
+  //     DispatchAsync("GET_POSTS", {}).then(() => {
+  //       setTimeout(() => {
+  //         isLoading(false);
+  //       }, 3000);
+  //     });
+  //   };
+  //   //  getPosts();
+  //   isLoading(false);
+
+  //   return () => {};
+  // }, []);
   return (
     <div>
       {loading ? (
@@ -45,7 +47,7 @@ const PostsPage = (props: any) => {
       ) : (
         <div className={classes.container}>
           <GridContainer justify="center">
-            <PostsList posts={posts} load={loading} />
+            <PostsList load={loading} />
           </GridContainer>
         </div>
       )}

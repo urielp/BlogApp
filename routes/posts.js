@@ -20,38 +20,40 @@ router.get('/', (req, res, next) => {
   const {
     body
   } = req;
-  console.log("before postin new ", body);
-  if (!body.title) {
-    return res.status(422).json({
-      errors: {
-        title: 'is required',
-      },
-    });
-  }
-  if (!body.subTitle) {
-    return res.status(422).json({
-      errors: {
-        title: 'is required',
-      },
-    });
-  }
-  if (!body.author) {
-    return res.status(422).json({
-      errors: {
-        author: 'is required',
-      },
-    });
-  }
+  console.log("body ", typeof body);
+  // if (!body.title) {
+  //   return res.status(422).json({
+  //     errors: {
+  //       title: 'is required',
+  //     },
+  //   });
+  // }
+  // if (!body.subTitle) {
+  //   return res.status(422).json({
+  //     errors: {
+  //       title: 'is required',
+  //     },
+  //   });
+  // }
+  // if (!body.author) {
+  //   return res.status(422).json({
+  //     errors: {
+  //       author: 'is required',
+  //     },
+  //   });
+  // }
 
-  if (!body.body) {
+  if (!body) {
     return res.status(422).json({
       errors: {
         body: 'is required',
       },
     });
   }
+  // console.log(body)
   body.createdAt = moment().format('LLL');
   const finalArticle = new Article(body);
+  console.log(finalArticle, body);
   return finalArticle.save()
     .then(() => res.json({
       article: finalArticle.toJSON()
