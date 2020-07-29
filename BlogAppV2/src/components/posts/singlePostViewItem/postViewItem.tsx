@@ -77,7 +77,6 @@ const SinglePostViewItem = (props: any) => {
       setHeadLine(content[0].children[0].text);
       setShortDescription(content[1].children[0].text);
       setValue(content.slice(1));
-      console.log(props.post.content);
     }
   }, [props.post.content]);
   return (
@@ -89,8 +88,9 @@ const SinglePostViewItem = (props: any) => {
           </Grid>
         </Grid>
       </div>
-
-      {/* <GridContainer justify="center">
+      {
+        //TODO:see how we can split the headline and subtitile
+        /* <GridContainer justify="center">
         <GridItem xs={6} sm={6} md={6}>
           <div>
             <h1 className={classes.title}> {headLine}</h1>
@@ -99,7 +99,8 @@ const SinglePostViewItem = (props: any) => {
             <h2 className={classes.description}>{shortDescription}</h2>
           </div>
         </GridItem>
-      </GridContainer> */}
+      </GridContainer> */
+      }
       {/* <Card>
             <CardHeader color="primary">
               <div>
@@ -126,7 +127,6 @@ const SinglePostViewItem = (props: any) => {
             </CardBody>
             <CardFooter>Footer</CardFooter>
           </Card> */}
-
       {/* <GridContainer justify="center">
         <GridItem xs={12} sm={12}>
           <CardAvatar profile={true} className={classes.avatar}>
@@ -213,7 +213,6 @@ const SinglePostViewItem = (props: any) => {
           </li>
         </ul>
       </div> */}
-
       <div>
         <GridContainer justify="center">
           <GridItem xs={6} sm={6} md={6}>

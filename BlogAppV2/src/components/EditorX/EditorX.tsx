@@ -75,9 +75,10 @@ const EditorAxe = (props: any) => {
         value={value}
         onChange={(value) => {
           setValue(value);
+          props.setPostTitle(value[0].children[0].text);
           const content = JSON.stringify(value);
           localStorage.setItem("content", content);
-          props.editorContent(JSON.stringify(value));
+          props.editorContent(value);
         }}
       >
         <HoveringToolbarX

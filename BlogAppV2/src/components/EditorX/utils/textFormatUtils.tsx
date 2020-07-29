@@ -55,8 +55,8 @@ export const LeafX = ({ attributes, children, leaf }: any) => {
     //TODO:make an element with style for mark
     children = <mark>{children}</mark>;
   }
-
-  return <span {...attributes}>{children}</span>;
+  console.log(children);
+  return <p {...attributes}>{children}</p>;
 };
 const DefaultELement = (props: any) => {
   return <div>{props.children}</div>;
