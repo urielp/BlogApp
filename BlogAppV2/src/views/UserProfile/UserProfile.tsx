@@ -12,7 +12,6 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardAvatar from "../../components/Card/CardAvatar";
 import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
-import avatar from "../../assets/img/faces/marc.jpg";
 import { createStyles } from "@material-ui/core";
 
 const styles = createStyles({
@@ -153,7 +152,7 @@ function UserProfile(props: any) {
           <Card profile={true}>
             <CardAvatar profile={true}>
               <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={avatar} alt="..." />
+                <img src="{avatar}" alt="..." />
               </a>
             </CardAvatar>
             <CardBody profile={true}>

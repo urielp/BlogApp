@@ -5,10 +5,13 @@ bloagapp/node_modules
 
 #docs
 BlogAppV2/documentation
-
+BlogAppV2/BU
 
 #some other shit
 bloagapp/assets_OLD
 bloagapp/assets_OLD2
 bloagapp/assets_TryintToTS
 bloagapp/jsonServices
+./vscode
+.DS_Store
+.DS_Store
