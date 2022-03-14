@@ -1,32 +1,32 @@
-import * as React from "react";
-import { ReactEditor, useSlate } from "slate-react";
-import { Range } from "slate";
-import { Editor } from "slate";
-import { Icon, Menu, Portal } from "./components";
-import LinkButton from "./components/LinkButton";
-import FormatButtonX from "./FormatButtonX";
-import StyleButton from "./StyleButton";
-import { cx, css } from "emotion";
-import CodeIcon from "@material-ui/icons/Code";
-import { Fab, Action } from "react-tiny-fab";
-import "react-tiny-fab/dist/styles.css";
+import * as React from 'react';
+import { ReactEditor, useSlate } from 'slate-react';
+import { Range } from 'slate';
+import { Editor } from 'slate';
+import { Icon, Menu, Portal } from './components';
+import LinkButton from './components/LinkButton';
+import FormatButtonX from './FormatButtonX';
+import StyleButton from './StyleButton';
+import { cx, css } from 'emotion';
+import CodeIcon from '@material-ui/icons/Code';
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
 
 const STYLE_TYPES = [
-  { format: "bold", iconFormat: "formatBold" },
-  { format: "underlined", iconFormat: "formatUnderline" },
-  { format: "italic", iconFormat: "formatItalic" },
-  { format: "highlighted", iconFormat: "formatHighlight" },
-  { format: "code", iconFormat: "formatCode" },
+  { format: 'bold', iconFormat: 'formatBold' },
+  { format: 'underlined', iconFormat: 'formatUnderline' },
+  { format: 'italic', iconFormat: 'formatItalic' },
+  { format: 'highlighted', iconFormat: 'formatHighlight' },
+  { format: 'code', iconFormat: 'formatCode' },
 ];
 const BLOCK_STYLE = [
-  { format: "block-quote", iconFormat: "formatQuote" },
-  { format: "paragraph", iconFormat: "formatParagraph" },
-  { format: "h1", content: "H1" },
-  { format: "h2", content: "H2" },
-  { format: "h3", content: "H3" },
-  { format: "h4", content: "H4" },
-  { format: "h5", content: "H5" },
-  { format: "h6", content: "H6" },
+  { format: 'block-quote', iconFormat: 'formatQuote' },
+  { format: 'paragraph', iconFormat: 'formatParagraph' },
+  { format: 'h1', content: 'H1' },
+  { format: 'h2', content: 'H2' },
+  { format: 'h3', content: 'H3' },
+  { format: 'h4', content: 'H4' },
+  { format: 'h5', content: 'H5' },
+  { format: 'h6', content: 'H6' },
 ];
 export const HoveringToolbarX = (props: any) => {
   const ref = React.useRef<any>();
@@ -44,9 +44,9 @@ export const HoveringToolbarX = (props: any) => {
       !selection ||
       !ReactEditor.isFocused(editor) ||
       Range.isCollapsed(selection) ||
-      Editor.string(editor, selection) === ""
+      Editor.string(editor, selection) === ''
     ) {
-      el.removeAttribute("style");
+      el.removeAttribute('style');
       return;
     }
 

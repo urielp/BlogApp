@@ -11,15 +11,19 @@ const articlePosts = require('./routes/posts');
 const jwt = require ('jsonwebtoken');
 const mongoose = require('mongoose');
 
+
+const db = require('./newDBStruct/models');
+
 try{
 
-  let connection = mongoose.connect(
+   db.mongoose.connect(
             "mongodb+srv://fakeUser:OkxojOOmqv3rF9Q8@appclust-rpwwy.mongodb.net/test?retryWrites=true&w=majority",
             { 
               useNewUrlParser: true,
               useUnifiedTopology: true 
+            }).then(()=>{
+              console.log("Connected Successfully To DB");          
             });
-  console.log("Connected Successfully To DB");          
 }
 catch(error){
   console.log("unable to login to DB: ",error);

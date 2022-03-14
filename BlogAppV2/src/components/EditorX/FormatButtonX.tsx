@@ -65,7 +65,6 @@ const FormatButtonX = ({
   };
 
   const toggleFormatAction = () => {
-    console.log("formatToggleBtn", format);
     toggleBlockAction(editor, format);
   };
   return (

@@ -62,10 +62,11 @@ router.get('/', function(req, res, next) {
     }
     authonticatedUser=user;
     console.log(authonticatedUser);
+    
     return bcrypt.compare(req.body.password,authonticatedUser.password);
   })
   .then(results=>{
-    console.log(results);
+    console.log('login promise resolved');
     if(!results){
       return res.status(401).json({message:"Auth failed!",data:"oh no"});
     }
@@ -75,7 +76,7 @@ router.get('/', function(req, res, next) {
         "this_should_be_secret_or_salt_for_token",
       {expiresIn:"1h"});
       res.setHeader('Autorization',token);
-      res.status(200).json({
+      return res.status(200).json({
         message:"Success!!",
         token:token,
         user:{name:authonticatedUser.name,email:authonticatedUser.email},

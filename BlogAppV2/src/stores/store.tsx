@@ -5,6 +5,7 @@ let listners: any[] = [];
 let actions: any;
 
 export const useStore = (shouldListen = true) => {
+  
   const setState = useState(globalState)[1];
   const dispatch = (actionIdentifier: any, payload: any) => {
     const newState = actions[actionIdentifier](globalState, payload);
@@ -74,7 +75,7 @@ export const useStoreAsyncVersion = (shouldListen = true) => {
       }
     };
   }, [setState, shouldListen]);
-
+      
   return [globalState, dispatch];
 };
 export const initStore = (userActions: any, initialState: any) => {
@@ -82,4 +83,5 @@ export const initStore = (userActions: any, initialState: any) => {
     globalState = { ...globalState, ...initialState };
   }
   actions = { ...actions, ...userActions };
+  console.log(actions)
 };

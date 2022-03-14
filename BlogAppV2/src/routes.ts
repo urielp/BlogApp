@@ -16,6 +16,7 @@ import Icons from "./views/Icons/Icons";
 import Maps from "./views/Maps/Maps";
 import NotificationsPage from "./views/Notifications/Notifications";
 import { NewPostsPage } from "./views/newPostPage/newPost";
+
 import { LoginPage } from "./views/LoginPage/loginPage";
 import PostsPage from "./views/posts/postsPage";
 import SinglePostView from "./views/posts/postView";
@@ -35,15 +36,15 @@ const dashboardRoutes = [
     rtlName: "לוח בקרה",
     icon: Dashboard,
     component: DashBoardXV2,
-    layout: "/adminx"
-  },
+    layout: "/adminx",
+  }, 
   {
     path: "/posts",
     name: "Posts",
     rtlName: "פרסומים",
     icon: DescriptionIcon,
     component: PostsPage,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/user",
@@ -51,7 +52,7 @@ const dashboardRoutes = [
     rtlName: "פרופיל משתמש",
     icon: Person,
     component: UserProfile,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/table",
@@ -59,7 +60,7 @@ const dashboardRoutes = [
     rtlName: "טבלאות",
     icon: "content_paste",
     component: TableList,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/typography",
@@ -67,7 +68,7 @@ const dashboardRoutes = [
     rtlName: "כתב ופונטים",
     icon: LibraryBooks,
     component: Typography,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/icons",
@@ -75,7 +76,7 @@ const dashboardRoutes = [
     rtlName: "סמלים",
     icon: BubbleChart,
     component: Icons,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/maps",
@@ -83,7 +84,7 @@ const dashboardRoutes = [
     rtlName: "מפות",
     icon: LocationOn,
     component: Maps,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/notifications",
@@ -91,7 +92,7 @@ const dashboardRoutes = [
     rtlName: "התראות",
     icon: Notifications,
     component: NotificationsPage,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   // {
   //   path: "/upgrade-to-pro",
@@ -115,7 +116,7 @@ const dashboardRoutes = [
     rtlName: "התחברות",
     icon: AccountCircleIcon,
     component: LoginPage,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/newPost",
@@ -123,7 +124,7 @@ const dashboardRoutes = [
     rtlName: "פוסט חדש",
     icon: AccountCircleIcon,
     component: NewPostsPage,
-    layout: "/adminx"
+    layout: "/adminx",
   },
   {
     path: "/post",
@@ -131,8 +132,8 @@ const dashboardRoutes = [
     rtlName: "פוסט",
     icon: AccountCircleIcon,
     component: SinglePostView,
-    layout: "/adminx"
-  }
+    layout: "/adminx",
+  },
 ];
 
 export default dashboardRoutes;

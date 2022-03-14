@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator')
-const mongoosePaginate = require("mongoose-paginate-v2");
-const articleSChema = mongoose.Schema({
+module.exports = (mongoose,mongoosePaginate,uniqueValidator) =>{
+var  schema = mongoose.Schema({
   title: {
     type: String,
     requierd: true
@@ -36,6 +34,15 @@ const articleSChema = mongoose.Schema({
     type: Array
   }
 },{timestamps:true})
-articleSChema.plugin(uniqueValidator);
-articleSChema.plugin(mongoosePaginate);
-module.exports = mongoose.model("Article", articleSChema);
+
+schema.method("toJSON",function(){
+    const {__v,_id,...object} =this.toObject();
+    object.id=_id;
+    return object;
+})
+
+schema.plugin(mongoosePaginate)
+schema.plugin(uniqueValidator);
+const Articles =mongoose.model("articles",schema);
+return Articles
+}

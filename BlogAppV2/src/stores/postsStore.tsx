@@ -5,6 +5,7 @@ const postsStore = () => {
   const actions = {
     GET_POSTS: async (curState: any, payload: any) => {
       const getPosts = async () => {
+        console.log('get all postas')
         const results = await axios.get(
           "http://localhost:3000/articles",
           payload
@@ -15,6 +16,7 @@ const postsStore = () => {
       return { ...curState, ...posts };
     },
     NEW_POST: async (curState: any, payload: any) => {
+      console.log(payload);
       const postNewPost = async () => {
         const results = await axios.post(
           "http://localhost:3000/articles",
@@ -32,11 +34,23 @@ const postsStore = () => {
       };
       let post = await getPost();
       return post;
-    }
+    },
+    GET_POST_PAGINATION: async (curState: any, payload: any) => {
+      
+      const getPostWithPagination = async () => {
+        const results = await axios.get(
+          "http://localhost:3000/articles/withPagination" ,{params:{page:payload.page}}
+        );
+        return results.data;
+      };
+      let someData = await getPostWithPagination();
+     
+      return { ...curState, ...someData };
+    },
   };
   initStore(actions, {
     posts: [],
-    dummy: {}
+    articles:[]
   });
 };
 export default postsStore;
